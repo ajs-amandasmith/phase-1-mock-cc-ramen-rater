@@ -21,19 +21,19 @@ function showRamenData(ramenArray) {
 }
 
 function clickRamenImg(ramenArray, ramenMenu) {
-  console.log('ramen data', ramenArray);
   const menuArray = [...ramenMenu.childNodes];
   const menuImages = menuArray.slice(3);
-  console.log(menuImages);
-  menuImages.map(image => image.addEventListener('click', e => handleClickRamenImg(e)));
+  menuImages.map(image => image.addEventListener('click', e => handleClickRamenImg(e, ramenArray)));
 }
 
-function handleClickRamenImg(e) {
-  console.log(e);
+function handleClickRamenImg(e, ramenArray) {
+  console.log(e.target.src);
+  console.log(ramenArray);
+  const ramenDetailDiv = document.getElementById('ramen-detail');
+  console.log(ramenDetailDiv);
+  ramenDetailDiv.querySelector('img').src = e.target.src
 }
 
-// click on an image in #ramen-menu div
-// get the #ramen-detail div
 // add all the ramen info to the #ramen-detail div
 // image -> .detail-image img
 // name -> .name h2
