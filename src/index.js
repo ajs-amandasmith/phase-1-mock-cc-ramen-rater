@@ -44,6 +44,7 @@ function handleClickRamenImg(e, ramenArray) {
   ramenDetailDiv.querySelector('h2').textContent = currentRamen.name;
   ramenDetailDiv.querySelector('h3').textContent = currentRamen.restaurant;
   document.getElementById('rating-display').textContent = currentRamen.rating;
+  document.getElementById('comment-display').textContent = currentRamen.comment;
 
 }
 
