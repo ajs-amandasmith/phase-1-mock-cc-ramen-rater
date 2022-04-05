@@ -11,23 +11,36 @@ function getRamenData() {
 }
 
 function showRamenData(ramenArray) {
-  console.log('ramen data', ramenArray);
   const ramenMenu = document.getElementById('ramen-menu');
-  console.log('menu', ramenMenu)
   ramenArray.map(ramen => {
-    console.log('ramen', ramen)
     const ramenImage = document.createElement('img');
-
     ramenImage.src = ramen.image;
-
     ramenMenu.append(ramenImage);
   })
+  clickRamenImg(ramenArray, ramenMenu);
 }
 
+function clickRamenImg(ramenArray, ramenMenu) {
+  console.log('ramen data', ramenArray);
+  const menuArray = [...ramenMenu.childNodes];
+  const menuImages = menuArray.slice(3);
+  console.log(menuImages);
+  menuImages.map(image => image.addEventListener('click', e => handleClickRamenImg(e)));
+}
 
-// see ramen images in div#ramen-menu
-  // page loads -> request data from server to get all the ramen objects
-  // display the image for each of the ramen using an img tag inside #ramen-menu div
+function handleClickRamenImg(e) {
+  console.log(e);
+}
+
+// click on an image in #ramen-menu div
+// get the #ramen-detail div
+// add all the ramen info to the #ramen-detail div
+// image -> .detail-image img
+// name -> .name h2
+// restaurant -> .restaurant h3
+// rating -> #rating-display span
+// comment -> #comment-display p
+
 
 
 // Click on an image from the #ramen-menu div and see all the info about that ramen displayed inside the #ramen-detail div and where it says insert comment here and insert rating here.
