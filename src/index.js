@@ -15,6 +15,7 @@ function showRamenData(ramenArray) {
   ramenArray.map(ramen => {
     const ramenImage = document.createElement('img');
     ramenImage.src = ramen.image;
+    ramenImage.dataset.id = ramen.id;
     ramenMenu.append(ramenImage);
   })
   clickRamenImg(ramenArray, ramenMenu);
@@ -27,15 +28,24 @@ function clickRamenImg(ramenArray, ramenMenu) {
 }
 
 function handleClickRamenImg(e, ramenArray) {
-  console.log(e.target.src);
+  console.log(e.target.dataset.id);
   console.log(ramenArray);
+
+  const imageDataId = e.target.dataset.id;
+  const numImageDataId = parseInt(imageDataId);
+  const currentRamen = ramenArray.find(ramen => ramen.id === numImageDataId)
+  console.log(currentRamen);
+
   const ramenDetailDiv = document.getElementById('ramen-detail');
   console.log(ramenDetailDiv);
+
   ramenDetailDiv.querySelector('img').src = e.target.src
+  ramenDetailDiv.dataset.id = e.target.dataset.id
+  ramenDetailDiv.querySelector('h2').textContent = currentRamen.name;
+
 }
 
 // add all the ramen info to the #ramen-detail div
-// image -> .detail-image img
 // name -> .name h2
 // restaurant -> .restaurant h3
 // rating -> #rating-display span
