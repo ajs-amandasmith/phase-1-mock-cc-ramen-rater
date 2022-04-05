@@ -42,12 +42,11 @@ function handleClickRamenImg(e, ramenArray) {
   ramenDetailDiv.querySelector('img').src = e.target.src
   ramenDetailDiv.dataset.id = e.target.dataset.id
   ramenDetailDiv.querySelector('h2').textContent = currentRamen.name;
+  ramenDetailDiv.querySelector('h3').textContent = currentRamen.restaurant;
 
 }
 
 // add all the ramen info to the #ramen-detail div
-// name -> .name h2
-// restaurant -> .restaurant h3
 // rating -> #rating-display span
 // comment -> #comment-display p
 
