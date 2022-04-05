@@ -43,11 +43,11 @@ function handleClickRamenImg(e, ramenArray) {
   ramenDetailDiv.dataset.id = e.target.dataset.id
   ramenDetailDiv.querySelector('h2').textContent = currentRamen.name;
   ramenDetailDiv.querySelector('h3').textContent = currentRamen.restaurant;
+  document.getElementById('rating-display').textContent = currentRamen.rating;
 
 }
 
 // add all the ramen info to the #ramen-detail div
-// rating -> #rating-display span
 // comment -> #comment-display p
 
 
