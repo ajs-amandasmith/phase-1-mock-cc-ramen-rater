@@ -2,12 +2,22 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   getRamenData();
+  updateRamen();
 })
 
 function getRamenData() {
   fetch('http://localhost:3000/ramens')
     .then(response => response.json())
     .then(data => {
+      const ramenDetail = document.getElementById('ramen-detail');
+
+      ramenDetail.querySelector('img').src = data[0].image;
+      ramenDetail.dataset.id = data[0].id;
+      ramenDetail.querySelector('h2').textContent = data[0].name;
+      ramenDetail.querySelector('h3').textContent = data[0].restaurant;
+      document.getElementById('rating-display').textContent = data[0].rating;
+      document.getElementById('comment-display').textContent = data[0].comment;
+
       showRamenData(data)
       addNewRamen(data);
     })
@@ -23,7 +33,6 @@ function showRamenData(ramenArray) {
     ramenMenu.append(ramenImage);
   })
   clickRamenImg(ramenArray, ramenMenu);
-  // addNewRamen(ramenArray);
 }
 
 function clickRamenImg(ramenArray, ramenMenu) {
@@ -56,10 +65,6 @@ function addNewRamen(ramenArray) {
   const newCommentInput = document.getElementById('new-comment');
   const createNewRamenButton = document.getElementById('btn-create');
 
-  
-
-  
-
   createNewRamenButton.addEventListener('click', (e) => {
     e.preventDefault();
     console.log(ramenArray);
@@ -84,8 +89,22 @@ function addNewRamen(ramenArray) {
   })
 }
 
+function updateRamen() {
+  const editForm = document.getElementById('edit-ramen');
+  console.log(editForm);
+  const updateRatingInput = document.getElementById('edit-rating');
+  const updateCommentInput = document.getElementById('edit-comment');
+  const updateButton = document.getElementById('btn-update');
 
-// See the details for the first ramen as soon as the page loads (without clicking on an image)
+  updateButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    console.log(updateRatingInput.value);
+    console.log(updateCommentInput.value);
+  })
+
+  
+}
+
 // Update the rating and comment for a ramen by submitting a form. Changes should be reflected on the frontend. No need to persist. You can add this HTML to the index.html file to create the edit form:
 // <form id="edit-ramen">
 //   <h4>Update the Featured Ramen</h4>
