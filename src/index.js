@@ -7,11 +7,15 @@ document.addEventListener('DOMContentLoaded', () => {
 function getRamenData() {
   fetch('http://localhost:3000/ramens')
     .then(response => response.json())
-    .then(data => showRamenData(data))
+    .then(data => {
+      showRamenData(data)
+      addNewRamen(data);
+    })
 }
 
 function showRamenData(ramenArray) {
   const ramenMenu = document.getElementById('ramen-menu');
+  ramenMenu.innerHTML = '';
   ramenArray.map(ramen => {
     const ramenImage = document.createElement('img');
     ramenImage.src = ramen.image;
@@ -19,25 +23,20 @@ function showRamenData(ramenArray) {
     ramenMenu.append(ramenImage);
   })
   clickRamenImg(ramenArray, ramenMenu);
+  // addNewRamen(ramenArray);
 }
 
 function clickRamenImg(ramenArray, ramenMenu) {
   const menuArray = [...ramenMenu.childNodes];
-  const menuImages = menuArray.slice(3);
-  menuImages.map(image => image.addEventListener('click', e => handleClickRamenImg(e, ramenArray)));
+  menuArray.map(image => image.addEventListener('click', e => handleClickRamenImg(e, ramenArray)));
 }
 
 function handleClickRamenImg(e, ramenArray) {
-  console.log(e.target.dataset.id);
-  console.log(ramenArray);
-
   const imageDataId = e.target.dataset.id;
   const numImageDataId = parseInt(imageDataId);
   const currentRamen = ramenArray.find(ramen => ramen.id === numImageDataId)
-  console.log(currentRamen);
 
   const ramenDetailDiv = document.getElementById('ramen-detail');
-  console.log(ramenDetailDiv);
 
   ramenDetailDiv.querySelector('img').src = e.target.src
   ramenDetailDiv.dataset.id = e.target.dataset.id
@@ -45,16 +44,45 @@ function handleClickRamenImg(e, ramenArray) {
   ramenDetailDiv.querySelector('h3').textContent = currentRamen.restaurant;
   document.getElementById('rating-display').textContent = currentRamen.rating;
   document.getElementById('comment-display').textContent = currentRamen.comment;
-
 }
 
-// add all the ramen info to the #ramen-detail div
-// comment -> #comment-display p
+function addNewRamen(ramenArray) {
+  
+  const newRamenForm = document.getElementById('new-ramen');
+  const newNameInput = document.getElementById('new-name');
+  const newRestaurantInput = document.getElementById('new-restaurant');
+  const newImageInput = document.getElementById('new-image');
+  const newRatingInput = document.getElementById('new-rating');
+  const newCommentInput = document.getElementById('new-comment');
+  const createNewRamenButton = document.getElementById('btn-create');
 
+  
 
+  
 
-// Click on an image from the #ramen-menu div and see all the info about that ramen displayed inside the #ramen-detail div and where it says insert comment here and insert rating here.
-// Create a new ramen after submitting the new-ramen form. The new ramen should be added to the#ramen-menu div. The new ramen does not need to persist; in other words, if you refresh the page, it's okay that the new ramen is no longer on the page.
+  createNewRamenButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    console.log(ramenArray);
+    let ramenMenuDiv = document.getElementById('ramen-menu');
+    let ramenMenuDivArray = [...ramenMenuDiv.getElementsByTagName('img')];
+
+    let newRamenObj = {};
+
+    newRamenObj.name = newNameInput.value;
+    newRamenObj.restaurant = newRestaurantInput.value;
+    newRamenObj.image = newImageInput.value;
+    newRamenObj.rating = parseInt(newRatingInput.value);
+    newRamenObj.comment = newCommentInput.value;
+    newRamenObj.id = ramenMenuDivArray.length + 1;
+
+    console.log(newRamenObj);
+
+    ramenArray.push(newRamenObj);
+    console.log(ramenArray);
+    showRamenData(ramenArray);
+    newRamenForm.reset();
+  })
+}
 
 
 // See the details for the first ramen as soon as the page loads (without clicking on an image)
