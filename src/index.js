@@ -98,11 +98,15 @@ function updateRamen() {
 
   updateButton.addEventListener('click', (e) => {
     e.preventDefault();
+    let ratingValue = document.getElementById('rating-display');
+    let commentValue = document.getElementById('comment-display')
+
+    ratingValue.textContent = updateRatingInput.value;
+    commentValue.textContent = updateCommentInput.value;
     console.log(updateRatingInput.value);
     console.log(updateCommentInput.value);
+    editForm.reset();
   })
-
-  
 }
 
 // Update the rating and comment for a ramen by submitting a form. Changes should be reflected on the frontend. No need to persist. You can add this HTML to the index.html file to create the edit form:
